@@ -1,8 +1,8 @@
 import generateRandomString from "./generateRandomString";
-import sha256 from "./sha256";
+import sha256 from "./sha256.js";
 import base64encode from "./base64encode";
 import clientId from "../variables/clientID";
-import redirectUri from "../variables/redirectUri";
+import redirectUri from "../variables/redirectUri.js";
 
 const getUserAuth = async () => {
   const codeVerifier = generateRandomString(64);

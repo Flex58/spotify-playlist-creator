@@ -1,5 +1,5 @@
 import clientId from "../variables/clientID"
-import redirectUri from "../variables/redirectUri"
+import redirectUri from "../variables/redirectUri.js"
 
 const getToken = async (code) => {
 
@@ -22,8 +22,11 @@ const getToken = async (code) => {
     const body = await fetch("https://accounts.spotify.com/api/token", payload);
     const response = await body.json();
 
-    return await response
-    
+    localStorage.setItem("access_token", response.access_token)
+    localStorage.setItem("refresh_token", response.refresh_token)
+    const expiry = new Date()
+    expiry.setHours(expiry.getHours() + 1)
+    localStorage.setItem("token_expire", expiry)
 }
 
 export default getToken
