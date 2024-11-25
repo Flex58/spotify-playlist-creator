@@ -3,6 +3,9 @@ import getRefreshToken from "./getRefreshToken";
 const getSearch = async (type, search) => {
     const accessToken = localStorage.getItem("access_token")
     try {
+      if (!search || search == " ") {
+        throw new Error("Empty Search term")
+      }
         const body = await fetch(
           `https://api.spotify.com/v1/search?q=${search}&type=${type}`,
           {

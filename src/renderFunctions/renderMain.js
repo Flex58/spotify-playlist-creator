@@ -12,10 +12,10 @@ const renderMain = () => {
   trackLabel.textContent = "Tracks";
 
   trackInput.addEventListener("keyup", () => {
-    if (trackInput.value != "" & trackInput.value != " ") {
+    if (trackInput.value != " ") {
       let test = setTimeout(async () => {
         renderSearch(await getSearch("track", trackInput.value));
-      }, 500);
+      }, 250);
       while (test--) {
         clearTimeout(test);
       }
