@@ -19,7 +19,7 @@ const renderSearch = (response) => {
         artist.textContent = response.tracks.items[i].artists[0].name;
 
         div.addEventListener("click", () => {
-          userInputs.setTrack(response.tracks.items[i]);
+          userInputs.setTrack(response.tracks.items[i].id);
           response.tracks.items.splice(i, 1);
           clearScreen(container.id);
           renderSearch(response);
@@ -30,7 +30,7 @@ const renderSearch = (response) => {
         div.appendChild(artist);
         container.appendChild(div);
       }
-    } else{
+    } else {
       clearScreen(container.id);
       const length = response.artists.items.length;
       for (let i = 0; i < length; i++) {
@@ -45,7 +45,7 @@ const renderSearch = (response) => {
         artist.textContent = response.artists.items[i].name;
 
         div.addEventListener("click", () => {
-          userInputs.setArtist(response.artists.items[i]);
+          userInputs.setArtist(response.artists.items[i].id);
           response.artists.items.splice(i, 1);
           clearScreen(container.id);
           renderSearch(response);

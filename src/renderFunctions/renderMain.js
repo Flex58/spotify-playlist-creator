@@ -1,5 +1,9 @@
+import getRecommended from "../functions/getRecommended";
 import getSearch from "../functions/getSearch";
 import logOut from "../functions/logOut";
+import validateUserInputs from "../functions/validateUserInputs";
+import userInputs from "../variables/userInputs";
+import clearScreen from "./clearScreen";
 import renderSearch from "./renderSearch";
 
 const renderMain = () => {
@@ -15,7 +19,7 @@ const renderMain = () => {
     if (trackInput.value != " ") {
       let test = setTimeout(async () => {
         renderSearch(await getSearch("track", trackInput.value));
-      }, 250);
+      }, 200);
       while (test--) {
         clearTimeout(test);
       }
@@ -32,7 +36,7 @@ const renderMain = () => {
     if (artistInput.value != " ") {
       let test = setTimeout(async () => {
         renderSearch(await getSearch("artist", artistInput.value));
-      }, 250);
+      }, 200);
       while (test--) {
         clearTimeout(test);
       }
@@ -44,6 +48,21 @@ const renderMain = () => {
 
   container.appendChild(artistLabel);
   container.appendChild(artistInput);
+
+  const getPlaylist = document.createElement("button");
+  getPlaylist.textContent = "Get Playlist";
+  getPlaylist.id = "getPlaylist";
+
+  getPlaylist.addEventListener("click", async () => {
+    if (validateUserInputs()) {
+      clearScreen("trackList")
+      await getRecommended()
+      userInputs.tracks = []
+      userInputs.artists = []
+    }
+  });
+
+  container.appendChild(getPlaylist);
 
   const logOutBtn = document.createElement("button");
   logOutBtn.textContent = "Log Out";
