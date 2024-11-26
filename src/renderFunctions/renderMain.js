@@ -21,9 +21,29 @@ const renderMain = () => {
       }
     }
   });
+  
+  const artistInput = document.createElement("input");
+  artistInput.id = "artists";
+  const artistLabel = document.createElement("label");
+  artistLabel.for = "tracks";
+  artistLabel.textContent = "Artist";
+
+  artistInput.addEventListener("keyup", () => {
+    if (artistInput.value != " ") {
+      let test = setTimeout(async () => {
+        renderSearch(await getSearch("artist", artistInput.value));
+      }, 250);
+      while (test--) {
+        clearTimeout(test);
+      }
+    }
+  });
 
   container.appendChild(trackLabel);
   container.appendChild(trackInput);
+
+  container.appendChild(artistLabel);
+  container.appendChild(artistInput);
 
   const logOutBtn = document.createElement("button");
   logOutBtn.textContent = "Log Out";
