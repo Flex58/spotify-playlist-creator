@@ -1,7 +1,7 @@
 import clearScreen from "./clearScreen";
 import userInputs from "../variables/userInputs";
 
-const renderSearch = (response) => {
+const renderSearch = (response, mode = "include") => {
   const container = document.querySelector("#trackList");
   if (response) {
     if (response.tracks) {
@@ -19,7 +19,11 @@ const renderSearch = (response) => {
         artist.textContent = response.tracks.items[i].artists[0].name;
 
         div.addEventListener("click", () => {
-          userInputs.setTrack(response.tracks.items[i].id);
+          if (mode == "include") {
+            userInputs.setTrack(response.tracks.items[i].id);
+          } else {
+            userInputs.setExcludeTrack(response.tracks.items[i].id);
+          }
           response.tracks.items.splice(i, 1);
           clearScreen(container.id);
           renderSearch(response);
@@ -45,7 +49,11 @@ const renderSearch = (response) => {
         artist.textContent = response.artists.items[i].name;
 
         div.addEventListener("click", () => {
-          userInputs.setArtist(response.artists.items[i].id);
+          if (mode == "include") {
+            userInputs.setArtist(response.artists.items[i].id);
+          } else {
+            userInputs.setExcludeArtist(response.artists.items[i].id);
+          }
           response.artists.items.splice(i, 1);
           clearScreen(container.id);
           renderSearch(response);

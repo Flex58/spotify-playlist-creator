@@ -25,7 +25,27 @@ const renderMain = () => {
       }
     }
   });
-  
+
+  const trackExcludeInput = document.createElement("input");
+  trackExcludeInput.id = "tracksExclude";
+  const trackExcludeLabel = document.createElement("label");
+  trackExcludeLabel.for = "tracksExclude";
+  trackExcludeLabel.textContent = "Exclude Track";
+
+  trackExcludeInput.addEventListener("keyup", () => {
+    if (trackExcludeInput.value != " ") {
+      let test = setTimeout(async () => {
+        renderSearch(
+          await getSearch("track", trackExcludeInput.value),
+          "exclude",
+        );
+      }, 200);
+      while (test--) {
+        clearTimeout(test);
+      }
+    }
+  });
+
   const artistInput = document.createElement("input");
   artistInput.id = "artists";
   const artistLabel = document.createElement("label");
@@ -43,11 +63,34 @@ const renderMain = () => {
     }
   });
 
+  const artistExcludeInput = document.createElement("input");
+  artistExcludeInput.id = "artistsExclude";
+  const artistExcludeLabel = document.createElement("label");
+  artistExcludeLabel.for = "artistsExclude";
+  artistExcludeLabel.textContent = "Exclude Artist";
+
+  artistExcludeInput.addEventListener("keyup", () => {
+    if (artistExcludeInput.value != " ") {
+      let test = setTimeout(async () => {
+        renderSearch(await getSearch("artist", artistExcludeInput.value), "exclude");
+      }, 200);
+      while (test--) {
+        clearTimeout(test);
+      }
+    }
+  });
+
   container.appendChild(trackLabel);
   container.appendChild(trackInput);
 
   container.appendChild(artistLabel);
   container.appendChild(artistInput);
+
+  container.appendChild(trackExcludeLabel);
+  container.appendChild(trackExcludeInput);
+
+  container.appendChild(artistExcludeLabel);
+  container.appendChild(artistExcludeInput);
 
   const getPlaylist = document.createElement("button");
   getPlaylist.textContent = "Get Playlist";
@@ -55,10 +98,10 @@ const renderMain = () => {
 
   getPlaylist.addEventListener("click", async () => {
     if (validateUserInputs()) {
-      clearScreen("trackList")
-      await getRecommended()
-      userInputs.tracks = []
-      userInputs.artists = []
+      clearScreen("trackList");
+      await getRecommended();
+      userInputs.tracks = [];
+      userInputs.artists = [];
     }
   });
 
@@ -73,7 +116,6 @@ const renderMain = () => {
   });
 
   container.appendChild(logOutBtn);
-
 };
 
 export default renderMain;

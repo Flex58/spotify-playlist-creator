@@ -2,7 +2,6 @@ import getRefreshToken from "./getRefreshToken";
 import userInputs from "../variables/userInputs";
 
 const getRecommended = async () => {
-  const container = document.querySelector("#content");
   const accessToken = localStorage.getItem("access_token");
   try {
     const top = await fetch(
@@ -19,15 +18,8 @@ const getRecommended = async () => {
       error.code = top.status;
       throw error;
     }
-    const test = await top.json();
-    for (let i = 0; i < 20; i++) {
-      const div = document.createElement("div");
-      div.textContent =
-        JSON.stringify(test.tracks[i].name) +
-        " " +
-        JSON.stringify(test.tracks[i].artists[0].name);
-      container.appendChild(div);
-    }
+    console.log(await top.json())
+    return await top.json()
   } catch (err) {
     console.log(err);
     if (err.code == 401) {

@@ -3,7 +3,7 @@ import getRefreshToken from "./getRefreshToken";
 const getSearch = async (type, search) => {
     const accessToken = localStorage.getItem("access_token")
     try {
-      if (!search || search == " ") {
+      if (!search) {
         throw new Error("Empty Search term")
       }
         const body = await fetch(

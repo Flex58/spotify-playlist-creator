@@ -9,7 +9,7 @@ const validateUserInputs = () => {
 
   if (
     userInputs.tracks.length + userInputs.artists.length > 5 ||
-    userInputs.tracks.length + userInputs.artists.length < 0
+    userInputs.tracks.length + userInputs.artists.length <= 0 
   )
     return false;
 
